@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const studentRouter = require('./routers/studentRouter');
 
+// req,res
+
 app.use(express.json()); // post/put/patch => json obj =>req.body
 app.use((req, res, next) => {
     console.log("I am middleware 1!");
@@ -14,11 +16,7 @@ app.use((req, res, next) => {
 });
 app.use('/api/students', studentRouter);
 
-
-// app.get()
-// app.post()
-// app.patch()
-// app.put()
+app.get('/about', () => { });
 
 app.get('/', (req, res, next) => {
     // res.send("Another Response!");
