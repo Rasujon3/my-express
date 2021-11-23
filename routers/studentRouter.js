@@ -66,7 +66,7 @@ router.route('/')
 
 router.route('/:id')
     .get(studentDetail)
-    .post(studentUpdate)
+    .put(studentUpdate)
     .delete(studentDelete);
 
 module.exports = router;
