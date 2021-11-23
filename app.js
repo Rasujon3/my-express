@@ -1,6 +1,7 @@
 // Express...
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 const studentRouter = require('./routers/studentRouter');
 
 // req,res
@@ -10,6 +11,8 @@ app.use(express.json()); // post/put/patch => json obj =>req.body
 app.use(express.urlencoded({ extended: true })); // id = 1 & name = sujon
 
 app.use(express.static('public'));
+
+app.use(morgan('short'));
 
 app.use((req, res, next) => {
     console.log("I am middleware 1!");
