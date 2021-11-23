@@ -12,24 +12,16 @@ app.use(express.json());
 
 app.get('/', (request, response) => {
     response.send("Hello from express js!");
-})
+});
 
-// app.get('/another', (request, response) => {
-//     response.send("I am another response!");
-// })
-
-// app.get('/students', (request, response) => {
-//     response.send(JSON.stringify(["Rahim", "Karim"]));
-// })
-
-app.get('/api/students', (req, res) => {
+const studentList = (req, res) => {
     db.getDbStudents()
         .then(students => {
             res.send(students);
         })
-});
+}
 
-app.post('/api/students', (req, res) => {
+const newStudent = (req, res) => {
     const student = req.body;
     db.getDbStudents()
         .then(students => {
@@ -40,9 +32,9 @@ app.post('/api/students', (req, res) => {
 
                 })
         })
-});
+}
 
-app.get('/api/students/:id', (req, res) => {
+const studentDetail = (req, res) => {
     const id = parseInt(req.params.id);
     db.getDbStudents()
         .then(students => {
@@ -50,9 +42,9 @@ app.get('/api/students/:id', (req, res) => {
             if (!student) res.status(404).send("No student found with this id!");
             else res.send(student);
         });
-});
+}
 
-app.put('/api/students/:id', (req, res) => {
+const studentUpdate = (req, res) => {
     const id = parseInt(req.params.id);
     const updatedData = req.body;
     db.getDbStudents()
@@ -66,9 +58,9 @@ app.put('/api/students/:id', (req, res) => {
                     .then(msg => res.send(updatedData));
             }
         });
-});
+}
 
-app.delete('/api/students/:id', (req, res) => {
+const studentDelete = (req, res) => {
     const id = parseInt(req.params.id);
     db.getDbStudents()
         .then(students => {
@@ -78,7 +70,25 @@ app.delete('/api/students/:id', (req, res) => {
             db.insertDbStudent(updatedStudents)
                 .then(msg => res.send(student))
         });
-})
+}
+
+// app.get('/another', (request, response) => {
+//     response.send("I am another response!");
+// })
+
+// app.get('/students', (request, response) => {
+//     response.send(JSON.stringify(["Rahim", "Karim"]));
+// })
+
+app.get('/api/students', studentList);
+
+app.post('/api/students', newStudent);
+
+app.get('/api/students/:id', studentDetail);
+
+app.put('/api/students/:id', studentUpdate);
+
+app.delete('/api/students/:id', studentDelete)
 
 const port = 5000;
 app.listen(port, () => {
