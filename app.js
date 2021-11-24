@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/my-student-2', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
 })
     .then(() => console.log("Connected to MongoDB!"))
     .catch(err => console.error("MongoDB Connection Failed!"));
