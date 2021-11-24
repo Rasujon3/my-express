@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const studentRouter = require('./routers/studentRouter');
 const userRouter = require('./routers/userRouter');
+const authRouter = require('./routers/authRouter');
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/my-student-2', {
@@ -18,6 +19,7 @@ app.use(express.json()); // post/put/patch => json obj =>req.body
 
 app.use('/api/students', studentRouter);
 app.use('/api/user', userRouter);
+app.use('/api/auth', authRouter);
 
 app.get('/', (req, res) => {
     res.send("Hello from express js!");
