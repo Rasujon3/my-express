@@ -34,7 +34,7 @@ app.listen(port, () => {
 // Import Model
 // Connect Database
 
-// Authentication -> Login
+// Authentication -> Login -> JWT - JSON Web Token => auth successful -> JWT -> local storage
 // User-> table/collection -> email,password
 
 // Authorization -> Access to content/data
