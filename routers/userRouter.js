@@ -1,6 +1,8 @@
 const express = require('express');
 const { User } = require('../models/users');
 const router = express.Router();
+const bcrypt = require('bcrypt');
+
 
 // Check user by email => error msg => save user
 const newUser = async (req, res) => {
@@ -12,6 +14,9 @@ const newUser = async (req, res) => {
         email: req.body.email,
         password: req.body.password,
     });
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
 
     try {
         const result = await user.save();
