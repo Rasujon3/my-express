@@ -10,6 +10,7 @@ const studentList = async (req, res) => {
 }
 
 const newStudent = async (req, res) => {
+    console.log(req.header('Content-Type'));
     const student = new Student(req.body)
     try {
         const result = await student.save();
