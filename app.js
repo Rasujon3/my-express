@@ -4,18 +4,12 @@ const app = express();
 const studentRouter = require('./routers/studentRouter');
 const userRouter = require('./routers/userRouter');
 const authRouter = require('./routers/authRouter');
-const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost:27017/my-student-2', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => console.log("Connected to MongoDB!"))
-    .catch(err => console.error("MongoDB Connection Failed!"));
-
-// req,res
+const morgan = require('morgan');
 
 app.use(express.json()); // post/put/patch => json obj =>req.body
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
 
 app.use('/api/students', studentRouter);
 app.use('/api/user', userRouter);
@@ -25,16 +19,4 @@ app.get('/', (req, res) => {
     res.send("Hello from express js!");
 });
 
-const port = 5000;
-app.listen(port, () => {
-    console.log(`Listing on port ${port}...`);
-})
-
-// Mongooose -> Model -> Collection
-// Import Model
-// Connect Database
-
-// Authentication -> Login -> JWT - JSON Web Token => auth successful -> JWT -> local storage
-// User-> table/collection -> email,password
-
-// Authorization -> Access to content/data
+module.exports = app;
