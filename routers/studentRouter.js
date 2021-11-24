@@ -2,6 +2,7 @@ const express = require('express');
 const { Student } = require('../models/students');
 const router = express.Router();
 const authorize = require('../middlewares/authorize');
+const admin = require('../middlewares/admin');
 
 
 const studentList = async (req, res) => {
@@ -62,12 +63,12 @@ const studentDelete = async (req, res) => {
 };
 
 router.route('/')
-    .get(authorize, studentList)
+    .get(studentList)
     .post(newStudent);
 
 router.route('/:id')
     .get(studentDetail)
     .put(studentUpdate)
-    .delete(studentDelete);
+    .delete([authorize, admin], studentDelete);
 
 module.exports = router;
