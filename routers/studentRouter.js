@@ -5,7 +5,6 @@ const authorize = require('../middlewares/authorize');
 
 
 const studentList = async (req, res) => {
-
     const students = await Student.find()
         .sort({ name: 1 });
     res.send(students);
